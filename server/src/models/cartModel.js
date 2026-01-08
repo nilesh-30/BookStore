@@ -43,6 +43,6 @@ const cartSchema = new Schema(
     { timestamps: true }
 );
 
-const CartModal = model("Cart", cartSchema);
+const CartModel = model("Cart", cartSchema);
 
-export default CartModal;
+export default CartModel;

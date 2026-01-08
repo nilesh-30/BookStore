@@ -45,6 +45,6 @@ const bookSchema = new Schema(
     { timestamps: true }
 );
 
-const BookModal = model("Book", bookSchema);
+const BookModel = model("Book", bookSchema);
 
-export default BookModal;
+export default BookModel;
