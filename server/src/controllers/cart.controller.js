@@ -3,7 +3,7 @@ import BookModel from "../models/booksModel.js";
 
 const addToCart = async (req, res) => {
     try {
-        const userId = req.user.id;
+        const userId = req.user._id;
         const { bookId, quantity = 1 } = req.body;
 
         const book = await BookModel.findById(bookId);
@@ -56,7 +56,7 @@ const addToCart = async (req, res) => {
 
 const getMyCart = async (req, res) => {
     try {
-        const cart = await CartModel.findOne({ user: req.user.id })
+        const cart = await CartModel.findOne({ user: req.user._id })
             .populate("items.book", "title price image");
 
         if (!cart) {
@@ -75,7 +75,7 @@ const updateCartItem = async (req, res) => {
     try {
         const { bookId, quantity } = req.body;
 
-        const cart = await CartModel.findOne({ user: req.user.id });
+        const cart = await CartModel.findOne({ user: req.user._id });
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
         }
@@ -114,7 +114,7 @@ const removeFromCart = async (req, res) => {
     try {
         const { bookId } = req.params;
 
-        const cart = await CartModel.findOne({ user: req.user.id });
+        const cart = await CartModel.findOne({ user: req.user._id });
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
         }

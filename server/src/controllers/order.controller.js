@@ -3,7 +3,7 @@ import CartModel from "../models/cartModel.js";
 
 const placeOrder = async (req, res) => {
     try {
-        const userId = req.user.id;
+        const userId = req.user._id;
         const { shippingAddress, paymentMethod } = req.body;
 
         const cart = await CartModel.findOne({ user: userId })
@@ -62,7 +62,7 @@ const placeOrder = async (req, res) => {
 
 const getMyOrders = async (req, res) => {
     try {
-        const orders = await OrderModel.find({ user: req.user.id })
+        const orders = await OrderModel.find({ user: req.user._id })
             .sort({ createdAt: -1 });
 
         return res.status(200).json({

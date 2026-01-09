@@ -19,13 +19,22 @@ const userSchema = new Schema(
             required: [true, 'Password is required'],
             minLength: 6,
         },
+        role: {
+            type: String,
+            enum: ["user", "admin"],
+            default: "user",
+        },
+        isBanned: {
+            type: Boolean,
+            default: false,
+        },
 
     },
     { timestamps: true }
 );
 
 // 🔐 Hash password before save
-userSchema.pre("save", async function() {
+userSchema.pre("save", async function () {
     if (!this.isModified("password")) return;
 
     this.password = await bcrypt.hash(this.password, 10);
